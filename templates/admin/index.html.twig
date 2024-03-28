@@ -1,0 +1,45 @@
+
+
+{% extends 'layout/base_admin.html.twig' %}
+{% block title %}Hello AdminController!{% endblock %}
+
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1 class="text-center">You are in Admin Dashboard </h1>
+
+    <div class= "d-flex flex-wrap justify-content-around" >
+        <div class = "p-2 m-2 border border-dark text-center">
+            <a href="{{ path('app_admin_user_index') }}"><h2>DashBoard User</h2></a>
+            <div>
+                <img src="https://media.istockphoto.com/id/1345301535/fr/photo/ic%C3%B4ne-de-signe-plus.jpg?b=1&s=612x612&w=0&k=20&c=AAAYaNQKa6_L4U68Xc5YGl9H8Wz0r_7zNDVFsJM4YRo=" width="200" >
+            </div>
+            <div class = "m-2">
+                <img src="https://media.istockphoto.com/id/464515667/fr/photo/concept-daffaires-m%C3%A2le-doigt-pointant-du-doigt-touche-delete.jpg?b=1&s=612x612&w=0&k=20&c=bIhNtFPGpBioyuouQarR_nF5lNob1P-4G343i1i_vl0=" width="200" >
+            </div>
+            <div class = "m-2">
+            <img src="https://media.istockphoto.com/id/1281148810/fr/photo/mettre-%C3%A0-jour.jpg?b=1&s=612x612&w=0&k=20&c=6tscIWwXNf377RSF0OcHtXqBnc4HuTQA9XoMXNlcoKI=" width="200" >
+            </div>
+        </div>
+        <div class = "p-2 m-2 border border-dark text-center">
+            <a href="{{path('app_admin_post')}}"><h2>DashBoard Post</h2></a>
+            <div>
+                <img src="https://media.istockphoto.com/id/1345301535/fr/photo/ic%C3%B4ne-de-signe-plus.jpg?b=1&s=612x612&w=0&k=20&c=AAAYaNQKa6_L4U68Xc5YGl9H8Wz0r_7zNDVFsJM4YRo=" width="200" >
+            </div>
+            <div class = "m-2">
+                <img src="https://media.istockphoto.com/id/464515667/fr/photo/concept-daffaires-m%C3%A2le-doigt-pointant-du-doigt-touche-delete.jpg?b=1&s=612x612&w=0&k=20&c=bIhNtFPGpBioyuouQarR_nF5lNob1P-4G343i1i_vl0=" width="200" >
+            </div>
+            <div class = "m-2">
+            <img src="https://media.istockphoto.com/id/1281148810/fr/photo/mettre-%C3%A0-jour.jpg?b=1&s=612x612&w=0&k=20&c=6tscIWwXNf377RSF0OcHtXqBnc4HuTQA9XoMXNlcoKI=" width="200" >
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+{% endblock %}

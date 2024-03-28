@@ -1,0 +1,42 @@
+<header class="blog-header py-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white p-0 pe-2">
+        <div class="container-fluid p-0 ">
+            <a class="navbar-brand text-white p-0" href="{{path('app_homepage')}}"><img src="{{asset('img/adamas.png')}}" alt="logo adamas" height="50" width="auto"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="{{path('app_homepage')}}">Home</a>
+                    </li>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{path('app_login')}}">Login</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link blog-header-logo text-white" href="{{path('app_logout')}}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{path('app_profil')}}">Profil</a>
+                        </li>
+                    {% endif %}
+                    
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="{{path('app_homepage')}}" tabindex="-1" aria-disabled="true">The Blog</a>
+                    </li>
+                    {# <li>
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a class="btn btn-sm btn-outline-secondary" href="{{path('app_register')}}">Sign up</a>
+                        {% endif %}
+                    </li> #}
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>

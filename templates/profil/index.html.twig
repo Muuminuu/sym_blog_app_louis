@@ -1,0 +1,31 @@
+
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block body %}
+    <div class="text-center m-5">
+        <h1>Hello {{ user.username }}!</h1>
+    </div>
+    <div class="text-center">
+        Your username :
+        <p class="text-primary">
+            {{user.username}}
+        </p>
+    </div>
+    <div class="text-center">
+        Your email :
+        <p class="text-primary">
+            {{user.email}}
+        </p>
+    </div>
+    <div class="text-center">
+        Your roles :
+        <p class="text-primary">
+            {{roles}}
+        </p>
+    </div>
+{% endblock %}

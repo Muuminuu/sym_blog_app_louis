@@ -1,0 +1,18 @@
+{% if is_granted('ROLE_ADMIN') %}
+    {% set base = "_admin" %}
+{% else %}
+    {% set base = "" %}
+{% endif %}
+{% extends 'layout/base' ~ base ~ '.html.twig' %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block body %}
+    <h1>Edit Post</h1>
+
+    {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_user_post_index') }}">back to list</a>
+
+    {{ include('post/_delete_form.html.twig') }}
+{% endblock %}
