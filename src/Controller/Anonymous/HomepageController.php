@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\PostRepository;
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 class HomepageController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET'])]

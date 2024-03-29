@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -16,8 +17,9 @@ class PostController extends AbstractController
     #[Route('/', name: 'app_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
+        $posts = $postRepository->findBy(['published' => true]);
         return $this->render('user/post/index.html.twig', [
-            'posts' => $postRepository->findBy(['published' => true]),
+            'posts' => $posts,
         ]);
     }
 

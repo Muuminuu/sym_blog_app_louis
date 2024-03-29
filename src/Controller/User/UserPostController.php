@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController
@@ -18,7 +19,7 @@ class UserPostController extends AbstractController
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
-
+        $post = $postRepository->findAll();
         return $this->render('post/index.html.twig', [
             'posts' => $postRepository->findBy([
                 'author' => $this->getUser(),
@@ -67,6 +68,7 @@ class UserPostController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('edit', 'post')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PostType::class, $post);
