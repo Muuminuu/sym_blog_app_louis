@@ -11,6 +11,7 @@
         <main class="container">
             {% include('layout/header_anonymous.html.twig') %}
             {% include('layout/admin_nav.html.twig') %}
+            {% include "layout/_toast.html.twig" %}
             {% block body %}{% endblock %}
         </main>
     </body>
