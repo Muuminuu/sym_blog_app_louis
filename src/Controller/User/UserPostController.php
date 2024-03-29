@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/profile/post')]
-class PostController extends AbstractController
+class UserPostController extends AbstractController
 {
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response

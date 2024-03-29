@@ -1,4 +1,4 @@
- {% if is_granted('ROLE_ADMIN') %}
+{% if is_granted('ROLE_ADMIN') %}
     {% set base = "_admin" %}
 {% else %}
     {% set base = "" %}
@@ -11,7 +11,9 @@
 <section class="album py-5 bg-light">
     <section class="container">
         <h2>THE BLOG</h2>
+        {% if is_granted('ROLE_USER') %}
         <a type="button" class="btn btn-success m-1" href="{{ path('app_user_post_new') }}">Create new Post</a>
+        {% endif %}
         <div class="row">
             {% if posts is defined %}
                 {% for post in posts %}

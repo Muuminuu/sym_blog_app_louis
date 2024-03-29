@@ -12,7 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/profile')]
-class ProfilController extends AbstractController
+class UserProfilController extends AbstractController
 {
     #[Route('/', name: 'app_profil')]
     public function index(): Response
@@ -78,7 +78,6 @@ class ProfilController extends AbstractController
             'form' => $form
         ]);
         
-       
         // if (isset($_POST['password']) && isset($_POST['new-password'])
         //     && isset($_POST['confirm-new-password']) 
         //     && !empty($_POST['password']) && !empty($_POST['new-password']) 
