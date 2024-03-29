@@ -1,6 +1,8 @@
 
 {% if is_granted('ROLE_ADMIN') %}
     {% set base = "_admin" %}
+{% elseif is_granted('ROLE_EDITOR') %}
+    {% set base = "_editor" %}
 {% else %}
     {% set base = "" %}
 {% endif %}
