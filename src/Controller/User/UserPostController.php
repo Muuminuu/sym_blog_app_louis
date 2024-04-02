@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Service\FileUploader;
 
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Path;
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController
@@ -94,13 +91,10 @@ class UserPostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
-
+            
             if ($imgFile) {
-                $filesystem = new Filesystem();
-                if($filesystem->exists('../public/uploads/img/' . $post->getImg())){
-                    $filesystem->remove(['../public/uploads/img/' . $post->getImg()]);
-                }
-                $imgFileName = $fileUploader->upload($imgFile, "img_directory");
+
+                $imgFileName = $fileUploader->upload($imgFile, "img_directory", $post->getImg());
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
                 $post->setImg($imgFileName);
