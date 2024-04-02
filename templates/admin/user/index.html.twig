@@ -20,6 +20,7 @@
                 <th>Email</th>
                 <th>Username</th>
                 <th>Roles</th>
+                <th>Avatar</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -33,6 +34,9 @@
                     {% for role in user.roles %}
                         {{ role }},
                     {% endfor %}
+                </td>
+                <td>
+                    <img src="{{asset('uploads/avatar/' ~ user.avatar)}}" class="avatar">
                 </td>
                 <td>
                     <a type= "button" class="btn btn-primary m-1" href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>

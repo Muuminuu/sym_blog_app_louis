@@ -48,17 +48,14 @@ class FileUploader
         $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory($targetDirectory), $fileName);
+            $file->move($targetDirectory, $fileName);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
         return $fileName;
     }
 
-    public function getTargetDirectory($targetDirectory): string
-    {
-        return $targetDirectory;
-    }
+    
 }
 
 ?>

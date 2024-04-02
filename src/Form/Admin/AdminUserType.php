@@ -6,10 +6,12 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\File;
 
 class AdminUserType extends AbstractType
 {
@@ -39,10 +41,21 @@ class AdminUserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('password', PasswordType::class, [
-                'required' => true,
-                'hash_property_path' => 'password',
+            ->add('avatar', FileType::class, [
                 'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ])
+                ],
             ])
             // ici on déclare les conditions pour faire aparaitre les champs selon le mode (edition ou creation)
             //

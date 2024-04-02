@@ -36,10 +36,10 @@
             </tr>
         </tbody>
     </table>
+<img src="{{asset('uploads/avatar/' ~ user.avatar)}}"   >
+    <a type="button" class="btn btn-secondary m-1" href="{{ path('app_admin_user_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_user_index') }}">back to list</a>
-
-    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+    <a type="button" class="btn btn-warning m-1" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
 
     {{ include('admin/user/_delete_form.html.twig') }}
 {% endblock %}

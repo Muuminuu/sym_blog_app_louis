@@ -3,13 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Service\FileUploader;
 use App\Form\Admin\AdminUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
@@ -51,12 +52,21 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $avatarFile = $form->get('avatar')->getData();
+
+            if ($avatarFile) {
+                $avatarFileName = $fileUploader->upload($avatarFile, "avatar_directory", $user->getAvatar());
+
+                // updates the 'imgFilename' property to store the PDF file name
+                // instead of its contents
+                $user->setAvatar($avatarFileName);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
