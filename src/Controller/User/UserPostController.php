@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\FileUploader;
 
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -35,7 +36,7 @@ class UserPostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserInterface $user, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $post = new Post();
         $post->setAuthor($this->getUser());
@@ -47,24 +48,11 @@ class UserPostController extends AbstractController
             $imgFile = $form->get('img')->getData();
 
             if ($imgFile) {
-                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $imgFile->move(
-                        $this->getParameter('img_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                $imgFileName = $fileUploader->upload($imgFile);
 
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $post->setImg($newFilename);
+                $post->setImg($imgFileName);
             }
             $entityManager->persist($post);
             $entityManager->flush();
@@ -99,7 +87,7 @@ class UserPostController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -112,24 +100,10 @@ class UserPostController extends AbstractController
                 if($filesystem->exists('../public/uploads/img/' . $post->getImg())){
                     $filesystem->remove(['../public/uploads/img/' . $post->getImg()]);
                 }
-                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $imgFile->move(
-                        $this->getParameter('img_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
+                $imgFileName = $fileUploader->upload($imgFile);
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $post->setImg($newFilename);
+                $post->setImg($imgFileName);
             }
             $entityManager->persist($post);
             $entityManager->flush();
