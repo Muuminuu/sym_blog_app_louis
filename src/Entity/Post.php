@@ -43,6 +43,9 @@ class Post
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $slug;
 
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +119,18 @@ class Post
         $slugger = new AsciiSlugger;
         $this->slug = $slugger->slug($this->title);
         unset($slugger);
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): static
+    {
+        $this->img = $img;
+
+        return $this;
     }
 
 }

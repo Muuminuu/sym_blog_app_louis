@@ -26,7 +26,7 @@ class AdminUserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(AdminUserType::class, $user);
+        $form = $this->createForm(AdminUserType::class, $user); // , ['mode' => 'creation'] qu'on mettrait juste après le $user 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -1,4 +1,22 @@
 {{ form_start(form) }}
+
+    {# 
+    {{ form_errors(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.isVerified) }} 
+    {{ form_help(form.username) }}
+    #}
+
+    {# 
+    {{ form_label(form.username) }}
+    {{ form_widget(form.username) }}
+    {{ form_help(form.username) }}
+    {{ form_errors(form.username) }} 
+    #}
+
     {{ form_widget(form) }}
     <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

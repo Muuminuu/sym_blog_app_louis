@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController
@@ -28,17 +32,40 @@ class UserPostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserInterface $user): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserInterface $user, SluggerInterface $slugger): Response
     {
         $post = new Post();
         $post->setAuthor($this->getUser());
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imgFile = $form->get('img')->getData();
+
+            if ($imgFile) {
+                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imgFile->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'imgFilename' property to store the PDF file name
+                // instead of its contents
+                $post->setImg($newFilename);
+            }
             $entityManager->persist($post);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -69,14 +96,37 @@ class UserPostController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_user_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('edit', 'post')]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $imgFile = $form->get('img')->getData();
 
+            if ($imgFile) {
+                $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imgFile->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'imgFilename' property to store the PDF file name
+                // instead of its contents
+                $post->setImg($newFilename);
+            }
+            $entityManager->persist($post);
+            $entityManager->flush();
+            
             return $this->redirectToRoute('app_user_post_index', [], Response::HTTP_SEE_OTHER);
         }
 

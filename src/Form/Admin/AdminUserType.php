@@ -44,6 +44,15 @@ class AdminUserType extends AbstractType
                 'hash_property_path' => 'password',
                 'mapped' => false,
             ])
+            // ici on déclare les conditions pour faire aparaitre les champs selon le mode (edition ou creation)
+            //
+        // if ($options['mode'] == 'User::CREATION_MODE' || $options['mode'] == User:: PASSWORD_RESET_MODE) {
+            //    $builder->add('password', PasswordType::class, [
+            //        'required' => true,
+            //       'hash_property_path' => 'password',
+            //        'mapped' => false,
+            //]); 
+            // }
         ;
     }
 
@@ -51,6 +60,7 @@ class AdminUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            // 'mode'=> 'edition', // ici on déclare les options pour le mode ('edition' ou 'creation') et à partir d'ici, on peut utliser les optionss ci-dessus et AdminUserController.php
         ]);
     }
 }
