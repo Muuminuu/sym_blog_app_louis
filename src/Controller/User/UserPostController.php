@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 
 #[Route('/profile/post')]
 class UserPostController extends AbstractController
@@ -105,6 +108,10 @@ class UserPostController extends AbstractController
             $imgFile = $form->get('img')->getData();
 
             if ($imgFile) {
+                $filesystem = new Filesystem();
+                if($filesystem->exists('../public/uploads/img/' . $post->getImg())){
+                    $filesystem->remove(['../public/uploads/img/' . $post->getImg()]);
+                }
                 $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
