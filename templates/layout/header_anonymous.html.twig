@@ -14,17 +14,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{path('app_login')}}">Login</a>
                         </li>
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="{{path('app_register')}}" tabindex="-1" aria-disabled="true">Register</a>
+                    </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link blog-header-logo text-white" href="{{path('app_logout')}}">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{path('app_profil')}}">Profil</a>
-                        </li>
                     {% endif %}
-                    <li class="nav-item ">
-                        <a class="nav-link text-white" href="{{path('app_register')}}" tabindex="-1" aria-disabled="true">Register</a>
-                    </li>
+                    
                     <li class="nav-item ">
                         <a class="nav-link text-white" href="{{path('app_homepage')}}" tabindex="-1" aria-disabled="true">The Blog</a>
                     </li>
@@ -34,6 +32,7 @@
                         {% endif %}
                     </li> #}
                 </ul>
+                <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset('uploads/avatar/' ~ app.user.avatar)}}" class="avatar"></a>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
