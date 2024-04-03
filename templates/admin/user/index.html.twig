@@ -36,7 +36,11 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <img src="{{asset('uploads/avatar/' ~ user.avatar.img)}}" class="avatar">
+                    {% if user.avatar.isPrivate == 1 %}
+                    <img src="{{ path('serve_private_image', {'path': user.avatar.img}) }}" class="avatar">
+                    {% else %}
+                    <img src="{{asset('/uploads/avatar/' ~ user.avatar.img)}}" class="avatar">
+                    {% endif %}
                 </td>
                 <td>
                     <a type= "button" class="btn btn-primary m-1" href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>

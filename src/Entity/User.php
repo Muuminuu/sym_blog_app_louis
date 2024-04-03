@@ -45,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToOne]
+    #[ORM\OneToOne(cascade: ['persist'], orphanRemoval: true)]
     #[ORM\JoinColumn(nullable: true)]
     private ?UploadFile $avatar = null;
 

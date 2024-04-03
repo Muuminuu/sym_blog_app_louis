@@ -38,19 +38,12 @@ class RegistrationController extends AbstractController
             $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
-                $imgFileName = $fileUploader->upload($avatarFile, "img_directory");
+                $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory", $form->get('private')->getData());
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $fileUpload = new UploadFile();
                 $fileUpload->setAuthor($this->getUser());
-                $fileUpload->setImg($imgFileName);
-                $fileUpload->setCreatedAt(new \DateTimeImmutable());
-                $fileUpload->setModifiedAt(new \DateTimeImmutable());
+                
             }
-            $entityManager->persist($fileUpload);
-            $user->setAvatar($fileUpload);
-
-
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -58,7 +51,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setAvatar($fileUpload);
             $entityManager->persist($user);
             $entityManager->flush();
 
