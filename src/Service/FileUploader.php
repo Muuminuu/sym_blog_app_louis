@@ -54,7 +54,7 @@ class FileUploader
         }
         $targetDirectory = $this->params->get($target);
         //dd($targetDirectory);
-        if (null != $fileName) {
+        if (null != $fileName) { // ca marche pas//////////////////////////////////////////////// à reprendre ici pour effacer /////////////////////// 
             $filesystem = new \Symfony\Component\Filesystem\Filesystem();
             $filesystem->remove([$targetDirectory . '/' . $fileName]);
         }

@@ -34,6 +34,10 @@ class AdminUserType extends AbstractType
             ->add('isVerified', CheckboxType::class, [
                 'required' => true
             ])
+            ->add('private', CheckboxType::class, [
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Roles',
                 'choices' => $roles,

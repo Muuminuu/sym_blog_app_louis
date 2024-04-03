@@ -65,14 +65,10 @@ class AdminUserController extends AbstractController
                 $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
-                $imgFileName = $fileUploader->upload($avatarFile, "avatar_directory", $user->getAvatar()->getImg());
+                $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory",  $form->get('private')->getData(), $user->getAvatar()->getImg());
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $fileUpload = new UploadFile();
                 $fileUpload->setAuthor($this->getUser());
-                $fileUpload->setImg($imgFileName);
-                $fileUpload->setCreatedAt(new \DateTimeImmutable());
-                $fileUpload->setModifiedAt(new \DateTimeImmutable());
             }
             $entityManager->persist($fileUpload);
             $user->setAvatar($fileUpload);
