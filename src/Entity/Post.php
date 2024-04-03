@@ -43,8 +43,9 @@ class Post
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private string $slug;
 
-    #[ORM\Column(length: 255)]
-    private ?string $img = null;
+    #[ORM\OneToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?UploadFile  $img = null;
 
     public function getId(): ?int
     {
@@ -121,12 +122,12 @@ class Post
         unset($slugger);
     }
 
-    public function getImg(): ?string
+    public function getImg(): ?UploadFile
     {
         return $this->img;
     }
 
-    public function setImg(string $img): static
+    public function setImg(?UploadFile  $img): static
     {
         $this->img = $img;
 

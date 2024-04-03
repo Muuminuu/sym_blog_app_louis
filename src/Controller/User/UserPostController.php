@@ -4,18 +4,19 @@ namespace App\Controller\User;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Entity\UploadFile;
+use App\Service\FileUploader;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use App\Service\FileUploader;
 
 
 #[Route('/profile/post')]
@@ -37,20 +38,26 @@ class UserPostController extends AbstractController
     {
         $post = new Post();
         $post->setAuthor($this->getUser());
+        
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imgFile = $form->get('img')->getData();
-
+            
             if ($imgFile) {
                 $imgFileName = $fileUploader->upload($imgFile, "img_directory");
-
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $post->setImg($imgFileName);
+                $fileUpload = new UploadFile();
+                $fileUpload->setAuthor($this->getUser());
+                $fileUpload->setImg($imgFileName);
+                $fileUpload->setCreatedAt(new \DateTimeImmutable());
+                $fileUpload->setModifiedAt(new \DateTimeImmutable());
             }
+            $entityManager->persist($fileUpload);
+            $post->setImg($fileUpload);
             $entityManager->persist($post);
             $entityManager->flush();
             
@@ -93,12 +100,18 @@ class UserPostController extends AbstractController
             $imgFile = $form->get('img')->getData();
             
             if ($imgFile) {
+                $imgFileName = $fileUploader->upload($imgFile, "img_directory");
 
-                $imgFileName = $fileUploader->upload($imgFile, "img_directory", $post->getImg());
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $post->setImg($imgFileName);
+                $fileUpload = new UploadFile();
+                $fileUpload->setAuthor($this->getUser());
+                $fileUpload->setImg($imgFileName);
+                $fileUpload->setCreatedAt(new \DateTimeImmutable());
+                $fileUpload->setModifiedAt(new \DateTimeImmutable());
             }
+            $entityManager->persist($fileUpload);
+            $post->setImg($fileUpload);
             $entityManager->persist($post);
             $entityManager->flush();
             
