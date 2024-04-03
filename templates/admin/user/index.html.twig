@@ -36,7 +36,7 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <img src="{{asset('uploads/avatar/' ~ user.avatar)}}" class="avatar">
+                    <img src="{{asset('uploads/avatar/' ~ user.avatar.img)}}" class="avatar">
                 </td>
                 <td>
                     <a type= "button" class="btn btn-primary m-1" href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
@@ -52,6 +52,6 @@
         </tbody>
     </table>
 
-    <a type= "buton" class="btn btn-success m-1" href="{{ path('app_admin_user_new') }}">Create new</a>
+    <a type= "buton" class="btn btn-success m-1" href="{{ path('app_register') }}">Create new</a>
 {% endblock %}
 {# {{ user.roles ? user.roles|json_encode : '' }} #}

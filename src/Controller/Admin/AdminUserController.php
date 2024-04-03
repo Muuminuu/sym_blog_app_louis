@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\UploadFile;
 use App\Service\FileUploader;
 use App\Form\Admin\AdminUserType;
 use App\Repository\UserRepository;
@@ -61,11 +62,20 @@ class AdminUserController extends AbstractController
             $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
-                $avatarFileName = $fileUploader->upload($avatarFile, "avatar_directory", $user->getAvatar());
+                $avatarFile = $form->get('avatar')->getData();
 
+            if ($avatarFile) {
+                $imgFileName = $fileUploader->upload($avatarFile, "avatar_directory");
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $user->setAvatar($avatarFileName);
+                $fileUpload = new UploadFile();
+                $fileUpload->setAuthor($this->getUser());
+                $fileUpload->setImg($imgFileName);
+                $fileUpload->setCreatedAt(new \DateTimeImmutable());
+                $fileUpload->setModifiedAt(new \DateTimeImmutable());
+            }
+            $entityManager->persist($fileUpload);
+            $user->setAvatar($fileUpload);
             }
             $entityManager->flush();
 

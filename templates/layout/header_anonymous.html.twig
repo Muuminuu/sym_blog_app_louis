@@ -33,7 +33,7 @@
                     </li> #}
                 </ul>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset('uploads/avatar/' ~ app.user.avatar)}}" class="avatar"></a>
+                <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset('uploads/avatar/' ~ app.user.avatar.img)}}" class="avatar"></a>
                 {% endif %}
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
