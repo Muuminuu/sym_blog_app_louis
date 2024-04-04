@@ -21,17 +21,49 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $user = new User();
-        $password = $this->hasher->hashPassword($user, 'azerty');
+        $password = $this->hasher->hashPassword($user, 'admin');
         $user->setUsername('admin');
-        $user->setEmail('8l5oZ@example.com');
-        $user->setRoles(['ROLE_EDITOR']);
+        $user->setEmail('admin@admin.com');
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($password);
         $user->setIsVerified(true);
         $user->setAvatar($this->getReference('upload_file_1'));
-
         $this->addReference('user_1', $user);
         $manager->persist($user);
 
+        $user = new User();
+        $password = $this->hasher->hashPassword($user, 'editor');
+        $user->setUsername('editor');
+        $user->setEmail('editor@editor.com');
+        $user->setRoles(['ROLE_EDITOR']);
+        $user->setPassword($password);
+        $user->setIsVerified(true);
+        $user->setAvatar($this->getReference('upload_file_2'));
+        $this->addReference('user_2', $user);
+        $manager->persist($user);
+
+        $user = new User();
+        $password = $this->hasher->hashPassword($user, 'user');
+        $user->setUsername('user');
+        $user->setEmail('user@user.com');
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword($password);
+        $user->setIsVerified(true);
+        $user->setAvatar($this->getReference('upload_file_3'));
+        $this->addReference('user_3', $user);
+        $manager->persist($user);
+        
+        $user = new User();
+        $password = $this->hasher->hashPassword($user, 'adam');
+        $user->setUsername('leboss');
+        $user->setEmail('leboss@leboss.com');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword($password);
+        $user->setIsVerified(true);
+        $user->setAvatar($this->getReference('upload_file_4'));
+        $this->addReference('user_4', $user);
+        $manager->persist($user);
+        
         $manager->flush();
     }
 
