@@ -6,7 +6,7 @@ use App\Entity\UploadFile;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class UploadFileFixtures extends Fixture 
+class UploadFileFixturesImage extends Fixture 
 {
     public function load(ObjectManager $manager): void
     {
@@ -16,7 +16,7 @@ class UploadFileFixtures extends Fixture
         $uploadFile = new UploadFile();
         $uploadFile->setImg($array_img[$i+1]);
         $uploadFile->setIsPrivate(false);
-        $this->addReference('upload_file_'.$i, $uploadFile);
+        $this->addReference('upload_file_img'.$i, $uploadFile);
 
         $manager->persist($uploadFile);
         }

@@ -27,7 +27,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($password);
         $user->setIsVerified(true);
-        $user->setAvatar($this->getReference('upload_file_1'));
+        $user->setAvatar($this->getReference('upload_file_avatar_1'));
         $this->addReference('user_1', $user);
         $manager->persist($user);
 
@@ -38,7 +38,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles(['ROLE_EDITOR']);
         $user->setPassword($password);
         $user->setIsVerified(true);
-        $user->setAvatar($this->getReference('upload_file_2'));
+        $user->setAvatar($this->getReference('upload_file_avatar_2'));
         $this->addReference('user_2', $user);
         $manager->persist($user);
 
@@ -49,7 +49,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles(['ROLE_USER']);
         $user->setPassword($password);
         $user->setIsVerified(true);
-        $user->setAvatar($this->getReference('upload_file_3'));
+        $user->setAvatar($this->getReference('upload_file_avatar_3'));
         $this->addReference('user_3', $user);
         $manager->persist($user);
         
@@ -60,7 +60,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($password);
         $user->setIsVerified(true);
-        $user->setAvatar($this->getReference('upload_file_4'));
+        $user->setAvatar($this->getReference('upload_file_avatar_4'));
         $this->addReference('user_4', $user);
         $manager->persist($user);
         
@@ -70,7 +70,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            UploadFileFixtures::class
+            UploadFileFixturesAvatar::class
         ];
     }
 }

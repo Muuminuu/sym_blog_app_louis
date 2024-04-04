@@ -34,7 +34,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $post->setCreatedAt(new \DateTimeImmutable());
         $post->setModifiedAt(new \DateTime());
         $post->setSlug($slugger->slug($post->getTitle()));
-        $post->setImg($this->getReference('upload_file_'.$i)); // ici à vérifier up_load_file ↔ upload_file_1
+        $post->setImg($this->getReference('upload_file_img'.$i)); // ici à vérifier up_load_file ↔ upload_file_1
         $manager->persist($post);
 
         }
@@ -45,7 +45,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
-            UploadFileFixtures::class
+            UploadFileFixturesImage::class
         ];
     }
 
