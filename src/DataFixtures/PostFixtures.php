@@ -18,7 +18,6 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
 
 
         for ($i = 1; $i < 100; $i++) {
-
         $word = array_merge(range('a', 'z'), range('A', 'Z'));
         shuffle($word);
         $word = substr(implode($word), 0, 10);
