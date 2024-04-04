@@ -51,7 +51,6 @@ class UserPostController extends AbstractController
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
                 $fileUpload = new UploadFile();
-                $fileUpload->setAuthor($this->getUser());
                 $fileUpload->setImg($imgFileName);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());
@@ -105,7 +104,6 @@ class UserPostController extends AbstractController
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
                 $fileUpload = new UploadFile();
-                $fileUpload->setAuthor($this->getUser());
                 $fileUpload->setImg($imgFileName);
                 $fileUpload->setCreatedAt(new \DateTimeImmutable());
                 $fileUpload->setModifiedAt(new \DateTimeImmutable());

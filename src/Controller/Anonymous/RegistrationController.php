@@ -41,7 +41,6 @@ class RegistrationController extends AbstractController
                 $fileUpload = $fileUploader->upload($avatarFile, "avatar_directory", $form->get('private')->getData());
                 // updates the 'imgFilename' property to store the PDF file name
                 // instead of its contents
-                $fileUpload->setAuthor($this->getUser());
                 
             }
             // encode the plain password
