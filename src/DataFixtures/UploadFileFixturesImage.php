@@ -12,6 +12,7 @@ class UploadFileFixturesImage extends Fixture
     {
         $array_img = array_slice(scandir('public\uploads\img/'),2);
         shuffle($array_img);
+        
         for ($i = 1; $i < 100; $i++) {
         $uploadFile = new UploadFile();
         $uploadFile->setImg($array_img[$i+1]);
