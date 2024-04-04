@@ -5,10 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
 
     private UserPasswordHasherInterface $hasher;
@@ -28,6 +28,7 @@ class UserFixtures extends Fixture
         $user->setPassword($password);
         $user->setIsVerified(true);
         $user->setAvatar($this->getReference('upload_file_1'));
+
         $this->addReference('user_1', $user);
         $manager->persist($user);
 
