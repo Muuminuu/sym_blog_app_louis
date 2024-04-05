@@ -33,6 +33,34 @@
         <source>You are in Admin Dashboard</source>
         <target>Vous êtes sur la page d'accueil Administrateur</target>
       </trans-unit>
+      <trans-unit id="tAaAA0b" resname="My Post">
+        <source>My Posts</source>
+        <target>Mes Articles</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0c" resname="DashBoard Admin">
+        <source>DashBoard Admin</source>
+        <target>Administration</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0d" resname="Home">
+        <source>Home</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0e" resname="Login">
+        <source>Login</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0f" resname="Register">
+        <source>Register</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0g" resname="Logout">
+        <source>Logout</source>
+        <target>Deconnexion</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0h" resname="Search">
+        <source>Search</source>
+        <target>Recherche</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

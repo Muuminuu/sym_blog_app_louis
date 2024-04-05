@@ -1,51 +1,78 @@
-<header class="blog-header py-3">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white p-0 pe-2">
-        <div class="container-fluid p-0 ">
-            <a class="navbar-brand text-white p-0" href="{{path('app_homepage')}}"><img src="{{asset('img/adamas.png')}}" alt="logo adamas" height="50" width="auto"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="{{path('app_homepage')}}">Home</a>
-                    </li>
-                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+{% block local_translation %}
+    <header class="blog-header py-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white p-0 pe-2">
+            <div class="container-fluid p-0 ">
+                <a class="navbar-brand text-white p-0" href="{{path('app_homepage')}}"><img src="{{asset('img/adamas.png')}}" alt="logo adamas" height="50" width="auto"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{path('app_login')}}">Login</a>
+                            <a class="nav-link active text-white" aria-current="page" href="{{path('app_homepage')}}">
+                                {% trans %}
+                                Home
+                                {% endtrans %}
+                            </a>
                         </li>
-                    <li class="nav-item ">
-                        <a class="nav-link text-white" href="{{path('app_register')}}" tabindex="-1" aria-disabled="true">Register</a>
-                    </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link blog-header-logo text-white" href="{{path('app_logout')}}">Logout</a>
-                        </li>
-                    {% endif %}
-
-                    {# <li>
                         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a class="btn btn-sm btn-outline-secondary" href="{{path('app_register')}}">Sign up</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{path('app_login')}}">
+                                    {% trans %}
+                                    Login
+                                    {% endtrans %}
+                                </a>
+                            </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="{{path('app_register')}}" tabindex="-1" aria-disabled="true">
+                                {% trans %}
+                                Register
+                                {% endtrans %}
+                            </a>
+                        </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link blog-header-logo text-white" href="{{path('app_logout')}}">
+                                    {% trans %}
+                                    Logout
+                                    {% endtrans %}
+                                </a>
+                            </li>
                         {% endif %}
-                    </li> #}
-                </ul>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset('private/avatar/' ~ app.user.avatar.img)}}" class="avatar"></a>
-                {% endif %}
-                
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                {% for locale in locales %}
-                    {% if locale != app.request.locale %}
-                        <div class="d-flex m-2">
-                            <img class="m-1" src="{{asset('/uploads/img/' ~ locale ~ '.jpg')}}" width="20" height="auto"alt="french flag">
-                            <a class="dropdown-item bg-dark text-white " href="{{ path('app_change_locale', {'locale': locale}) }}">{{ locale }}</a>
-                        </div>
+
+                        {# <li>
+                            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a class="btn btn-sm btn-outline-secondary" href="{{path('app_register')}}">Sign up</a>
+                            {% endif %}
+                        </li> #}
+                    </ul>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a class="nav-link text-white" href="{{path('app_profil')}}"><img src="{{asset('private/avatar/' ~ app.user.avatar.img)}}" class="avatar"></a>
                     {% endif %}
-                {% endfor %}
+                    
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder=
+                            {% trans %}
+                            Search
+                            {% endtrans %}
+                        aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">
+                            {% trans %}
+                            Search
+                            {% endtrans %}
+                        </button>
+                    </form>
+                    {% for locale in locales %}
+                        {% if locale != app.request.locale %}
+                            <div class="m-2">
+                                <a class="dropdown-item bg-dark text-white " href="{{ path('app_change_locale', {'locale': locale}) }}">
+                                    <img class="m-1" src="{{asset('/uploads/img/' ~ locale ~ '.jpg')}}" width="20" height="auto"alt="french flag">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
+{% endblock %}
