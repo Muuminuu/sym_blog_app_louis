@@ -10,56 +10,80 @@
 {% block title %}Hello HomePageController!{% endblock %}
 
 {% block body %}
-<section class="album py-5 bg-light">
-    <section class="container">
-        <h2>THE BLOG</h2>
-        {% if is_granted('ROLE_USER') %}
-        <a type="button" class="btn btn-success m-1" href="{{ path('app_user_post_new') }}">Create new Post</a>
-        {% endif %}
-        <div class="row">
-            {% if posts is defined %}
-                {% for post in posts %}
-                    {% if post.img != "" %}
-                    <article class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="{{ asset('uploads/img/' ~ post.img.img) }}" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
-                            <header class="card-header">
-                                <h3 class="card-title">{{post.title}}</h3>
-                            </header>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    {{ post.content|length > 50 ? post.content|escape|slice(0, 50) ~ '...' : post.content|escape  }}
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a 
-                                            class="btn btn-sm btn-outline-secondary"
-                                            href="{{path('app_user_post_by_slug', {'slug': post.slug })}}"
-                                        >
-                                            Read More
-                                        </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
+    {% block local_translation %}
+    <section class="album py-5 bg-light">
+        <section class="container">
+            <h2>
+            {% trans %}
+                The blog
+            {% endtrans %}
+            </h2>
+            {% if is_granted('ROLE_USER') %}
+            <a type="button" class="btn btn-success m-1" href="{{ path('app_user_post_new') }}">
+            {% trans %}
+                Create new Post
+            {% endtrans %}
+            </a>
+            {% endif %}
+            <div class="row">
+                {% if posts is defined %}
+                    {% for post in posts %}
+                        {% if post.img != "" %}
+                        <article class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="{{ asset('uploads/img/' ~ post.img.img) }}" data-holder-rendered="true" style="height: 225px; width: 100%; display: block;">
+                                <header class="card-header">
+                                    <h3 class="card-title">{{post.title}}</h3>
+                                </header>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        {{ post.content|length > 50 ? post.content|escape|slice(0, 50) ~ '...' : post.content|escape  }}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
                                             <a 
                                                 class="btn btn-sm btn-outline-secondary"
-                                                href="{{path('app_user_post_edit', {'id': post.id })}}"
+                                                href="{{path('app_user_post_by_slug', {'slug': post.slug })}}"
                                             >
-                                                Edit
+                                            {% trans %}
+                                                Read More
+                                            {% endtrans %}
                                             </a>
-                                        {% endif %}
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a 
+                                                    class="btn btn-sm btn-outline-secondary"
+                                                    href="{{path('app_user_post_edit', {'id': post.id })}}"
+                                                >
+                                                {% trans %}
+                                                    Edit
+                                                {% endtrans %}
+                                                </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
+                                <footer class="card-footer">
+                                    <small class="text-muted">
+                                    {% trans %}
+                                        Created
+                                    {% endtrans %}
+                                    : 
+                                    {{post.createdAt|date("d/m/Y")}}</small>
+                                    |
+                                    <small class="text-muted">
+                                    {% trans %}
+                                        Updated 
+                                    {% endtrans %}
+                                    : 
+                                    {{post.modifiedAt|date("d/m/Y")}}</small>
+                                </footer>
                             </div>
-                            <footer class="card-footer">
-                                <small class="text-muted">Created : {{post.createdAt|date("d/m/Y")}}</small>
-                                |
-                                <small class="text-muted">Updated : {{post.modifiedAt|date("d/m/Y")}}</small>
-                            </footer>
-                        </div>
-                    </article>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        </div>
+                        </article>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
     </section>
-</section>
+    {% endblock %}
 {% endblock %}
