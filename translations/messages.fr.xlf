@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="DKta0Rx" resname="Bonjour">
+        <source>Hello</source>
+        <target>Bonjour</target>
+      </trans-unit>
+      <trans-unit id="FEHuvGa" resname="Au revoir">
+        <source>Bye Bye</source>
+        <target>Au revoir</target>
+      </trans-unit>
+      <trans-unit id="sCzkF8w" resname="Langue">
+        <source>Language</source>
+        <target>Langue</target>
+      </trans-unit>
+      <trans-unit id="sCzkF8x" resname="Campagne">
+        <source>I would like a new car.</source>
+        <target>Je voudrais une nouvelle voiture</target>
+      </trans-unit>
+      <trans-unit id="sCzkF8y" resname="DashBoard User">
+        <source>DashBoard User</source>
+        <target>Tableau des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="sCzkF8z" resname="DashBoard Post">
+        <source>DashBoard Post</source>
+        <target>Tableau des articles</target>
+      </trans-unit>
+      <trans-unit id="tAaAA0a" resname="Admin_home">
+        <source>You are in Admin Dashboard</source>
+        <target>Vous êtes sur la page d'accueil Administrateur</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
+

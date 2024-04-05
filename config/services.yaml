@@ -9,6 +9,9 @@ parameters:
     avatar_directory: '%kernel.project_dir%/public/uploads/avatar'
     private_avatar_directory: '%kernel.project_dir%/private/avatar'
 
+    # list of locales for your application
+    app.locales: [en, fr]
+
 services:
     # default configuration for services in *this* file
     _defaults:
