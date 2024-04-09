@@ -61,34 +61,6 @@
             <source>Recherche</source>
             <target>Search</target>
         </trans-unit>
-        <trans-unit id="tAaAA0i" resname="The blog">
-            <source>Les articles</source>
-            <target>The blog</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0j" resname="Create new Post">
-            <source>Créer un article</source>
-            <target>Create new Post</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0k" resname="Read More">
-            <source>En savoir plus</source>
-            <target>Read More</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0l" resname="Edit">
-            <source>Modifier</source>
-            <target>Edit</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0m" resname="Created">
-            <source>Créé le</source>
-            <target>Created</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0n" resname="Updated">
-            <source>Modifé le</source>
-            <target>Updated</target>
-        </trans-unit>
-        <trans-unit id="tAaAA0o" resname="Your Posts">
-            <source>Mes articles</source>
-            <target>Your Posts</target>
-        </trans-unit>
         </body>
     </file>
 </xliff>
