@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<title>Comment index</title>
+
+{% block body %}
+    <h1>Comment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>ModifiedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.description }}</td>
+                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ comment.modifiedAt ? comment.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a type = "button" class="btn btn-primary m-1" href="{{ path('app_comment_show', {'id': comment.id}) }}">show</a>
+                    <a type = "button" class="btn btn-warning m-1" href="{{ path('app_comment_edit', {'id': comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a type="button" class="btn btn-success m-1" href="{{ path('app_comment_new') }}">Create new</a>
+{% endblock %}

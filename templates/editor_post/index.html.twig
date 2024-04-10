@@ -38,9 +38,9 @@
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
                 <td>{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '' }}</td>
                 <td>
-                    <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">show</a>
-                    <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">edit</a>
-                    {{ include('post/_delete_form.html.twig') }}
+                        <a type= "button" class="btn btn-primary m-1" href="{{ path('app_user_post_show', {'id': post.id}) }}">show</a>
+                        <a type= "button" class="btn btn-warning m-1" href="{{ path('app_user_post_edit', {'id': post.id}) }}">edit</a>
+                        {{ include('post/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

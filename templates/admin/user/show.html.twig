@@ -34,9 +34,18 @@
                 <th>Password</th>
                 <td>{{ user.password }}</td>
             </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>
+                {% if user.avatar.isPrivate == 1 %}
+                    <img src="{{ path('serve_private_image', {'path': user.avatar.img}) }}" class="avatar">
+                {% else %}
+                    <img src="{{asset('/private/avatar/' ~ user.avatar.img)}}" class="avatar">
+                {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
-<img src="{{asset('uploads/avatar/' ~ user.avatar)}}"   >
     <a type="button" class="btn btn-secondary m-1" href="{{ path('app_admin_user_index') }}">back to list</a>
 
     <a type="button" class="btn btn-warning m-1" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>

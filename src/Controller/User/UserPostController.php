@@ -25,13 +25,18 @@ class UserPostController extends AbstractController
     #[Route('/', name: 'app_user_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository): Response
     {
-        $post = $postRepository->findAll();
+        // $post = $postRepository->findAll();
+        // return $this->render('post/index.html.twig', [
+        //     'posts' => $postRepository->findBy([
+        //         'author' => $this->getUser(),
+        //     ]),
+        // ]);
+        $post = $postRepository->findByAuthorId($this->getUser()->getId());
         return $this->render('post/index.html.twig', [
-            'posts' => $postRepository->findBy([
-                'author' => $this->getUser(),
-            ]),
+            'posts' => $post,
         ]);
     }
+
 
     #[Route('/new', name: 'app_user_post_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
@@ -75,8 +80,13 @@ class UserPostController extends AbstractController
     #[Route('/{slug}', name: 'app_user_post_by_slug', methods: ['GET'])]
     public function showBySlug(PostRepository $postRepository, string $slug): Response
     {
+        // return $this->render('post/show.html.twig', [
+        //     'post' => $postRepository->findOneBy(['slug' => $slug]),
+        // ]);
+
+        $post = $postRepository->findBySlug($slug);
         return $this->render('post/show.html.twig', [
-            'post' => $postRepository->findOneBy(['slug' => $slug]),
+            'post' => $post,
         ]);
     }
 
