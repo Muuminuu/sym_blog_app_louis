@@ -1,0 +1,22 @@
+{
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "sass": "^1.74.1",
+        "vite": "^5.0",
+        "vite-plugin-symfony": "^6.4"
+    },
+    "dependencies": {
+        "@hotwired/stimulus": "^3.2.2",
+        "@hotwired/turbo": "^8.0.4",
+        "@symfony/ux-vue": "file:vendor/symfony/ux-vue/assets",
+        "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets",
+        "@popperjs/core": "^2.11.8",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "bootstrap": "^5.3.3"
+    }
+}
